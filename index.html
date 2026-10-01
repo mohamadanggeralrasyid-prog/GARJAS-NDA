@@ -416,7 +416,7 @@ async function saveRecord(){
   if(!v.ok){ setMessage(v.msg,true); return; }
   if(!remoteReady){ setMessage('Database online belum siap. Tunggu sebentar lalu coba lagi.',true); return; }
 
-  const name=E.name.value, month=Number(E.month.value);
+  const name=E.name.value, month=E.month.value;
   const existingById=editingId ? state.records.find(r=>String(r.id)===String(editingId)) : null;
   const duplicate=state.records.find(r=>r.level===currentLevel && r.name===name && r.month===month && (!existingById || String(r.id)!==String(existingById.id)));
   if(duplicate){ setMessage(`${escapeHtml(name)} pada bulan ${month} sudah memiliki data. Gunakan tombol Edit.`,true); return; }
