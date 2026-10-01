@@ -184,15 +184,28 @@ async function supabaseRequest(path='', options={}){
 }
 
 function dbToRecord(r){
+  const monthIndex = Number(r.bulan) - 1;
   return {
-    id: String(r.id), level:`TINGKAT ${r.tingkat}`, name:r.nama, month:Number(r.bulan),
+    id: String(r.id), level:`TINGKAT ${r.tingkat}`, name:r.nama,
+    month: D.months[monthIndex] ?? D.months[0],
     push:Number(r.push_up)||0, sit:Number(r.sit_up)||0, pull:Number(r.pull_up)||0, run:Number(r.lari)||0
   };
 }
 
 function recordToDb(r){
   const q=scores(r);
-  return {tingkat:Number(String(r.level).replace('TINGKAT ','')),nama:r.name,bulan:Number(r.month),push_up:r.push,sit_up:r.sit,pull_up:r.pull_up??r.pull, lari:r.run,total:q.total,grade:q.grade};
+  const monthIndex = D.months.indexOf(r.month);
+  return {
+    tingkat:Number(String(r.level).replace('TINGKAT ','')),
+    nama:r.name,
+    bulan:monthIndex + 1,
+    push_up:r.push,
+    sit_up:r.sit,
+    pull_up:r.pull,
+    lari:r.run,
+    total:q.total,
+    grade:q.grade
+  };
 }
 
 async function fetchRemoteState(){
@@ -633,10 +646,17 @@ function exportJSON(){
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 
-function clearAll(){
+async function clearAll(){
   if(!state.records.length){setMessage('Tidak ada data untuk dihapus.');return;}
-  if(!window.confirm('Hapus SEMUA data GARJAS dari perangkat ini? Tindakan ini tidak dapat dibatalkan.')) return;
-  state=emptyState(); persist(); renderTable(); drawAll(); setMessage('<span class="ok">✓ Semua data telah dihapus.</span>');
+  if(!window.confirm('Hapus SEMUA data GARJAS dari database online? Tindakan ini tidak dapat dibatalkan.')) return;
+  if(!remoteReady){setMessage('Database online belum siap.',true);return;}
+  try{
+    await supabaseRequest('garjas_data?id=gt.0',{method:'DELETE',headers:{'Prefer':'return=minimal'}});
+    state=emptyState(); persist(); renderTable(); drawAll();
+    setMessage('<span class="ok">✓ Semua data telah dihapus dari database online.</span>');
+  }catch(err){
+    setMessage('Gagal menghapus semua data: '+escapeHtml(err.message||err),true);
+  }
 }
 
 function bindEvents(){
