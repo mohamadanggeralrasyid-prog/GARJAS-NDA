@@ -204,7 +204,7 @@ function recordToDb(r){
     pull_up:r.pull,
     lari:r.run,
     total:q.total,
-    grade:q.grade
+    grade:(typeof q.grade === 'number' ? q.grade : null)
   };
 }
 
@@ -220,25 +220,39 @@ async function migrateLocalToRemote(local){
 }
 
 async function initRemote(){
+  remoteReady = false;
+  setMessage('<span class="ok">⏳ Menghubungkan ke database Supabase...</span>');
   try {
     let remote = await fetchRemoteState();
     const local = loadState();
+
+    // Hanya migrasikan data lokal jika database online benar-benar kosong.
     if(remote.records.length===0 && local.records.length>0){
       await migrateLocalToRemote(local);
       remote = await fetchRemoteState();
-      setMessage(`<span class="ok">✓ Data lokal berhasil dipindahkan ke database online.</span>`);
+      setMessage('<span class="ok">✓ Data lokal berhasil dipindahkan ke database online.</span>');
     }
+
     state = remote;
     remoteReady = true;
     persist();
-    renderTable(); drawAll();
-    if(!state.records.length) setMessage('<span class="ok">✓ Terhubung ke database Supabase. Belum ada data.</span>');
+    renderTable();
+    drawAll();
+
+    if(!state.records.length){
+      setMessage('<span class="ok">✓ Terhubung ke database Supabase. Belum ada data.</span>');
+    }else if(!local.records.length){
+      setMessage('<span class="ok">✓ Terhubung ke database Supabase. Data online berhasil dimuat.</span>');
+    }
   } catch(err){
     console.error('Supabase:',err);
-    state = loadState();
+    // PENTING: jangan fallback ke localStorage. Jika Supabase gagal,
+    // aplikasi harus memberi tahu pengguna agar masalah koneksi terlihat.
+    state = emptyState();
     remoteReady = false;
-    renderTable(); drawAll();
-    setMessage('Database online belum dapat diakses. Aplikasi memakai data lokal perangkat ini. Detail: '+escapeHtml(err.message||err), true);
+    renderTable();
+    drawAll();
+    setMessage('✕ Gagal terhubung ke database Supabase. Data TIDAK disimpan secara lokal. Detail: '+escapeHtml(err.message||err), true);
   }
 }
 
@@ -404,7 +418,7 @@ async function saveRecord(){
 
   const name=E.name.value, month=Number(E.month.value);
   const existingById=editingId ? state.records.find(r=>String(r.id)===String(editingId)) : null;
-  const duplicate=state.records.find(r=>r.level===currentLevel && r.name===name && Number(r.month)===month && (!existingById || String(r.id)!==String(existingById.id)));
+  const duplicate=state.records.find(r=>r.level===currentLevel && r.name===name && r.month===month && (!existingById || String(r.id)!==String(existingById.id)));
   if(duplicate){ setMessage(`${escapeHtml(name)} pada bulan ${month} sudah memiliki data. Gunakan tombol Edit.`,true); return; }
 
   const record={id:existingById?.id ?? null,level:currentLevel,name,month,push:v.push,sit:v.sit,pull:v.pull,run:v.run};
