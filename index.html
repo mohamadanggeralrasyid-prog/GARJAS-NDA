@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SISTEM GARJAS NDA — Offline V7</title>
+<title>SISTEM GARJAS NDA — Online Supabase</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f6f9;color:#182333;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 header{background:linear-gradient(135deg,#102e50,#2f659b);color:#fff;padding:20px}header h1{margin:0;font-size:23px}header p{margin:5px 0 0;font-size:13px;opacity:.82}
@@ -122,6 +122,17 @@ table{min-width:900px}.month-cell{min-width:95px}
 const D = {"push": [[92.0, 100.0], [91.0, 99.0], [90.0, 98.0], [89.0, 97.0], [88.0, 96.0], [86.0, 95.0], [84.0, 94.0], [83.0, 93.0], [82.0, 92.0], [81.0, 91.0], [80.0, 90.0], [79.0, 89.0], [78.0, 88.0], [77.0, 87.0], [76.0, 86.0], [75.0, 85.0], [74.0, 84.0], [73.0, 83.0], [72.0, 82.0], [71.0, 81.0], [70.0, 80.0], [69.0, 79.0], [68.0, 78.0], [67.0, 77.0], [65.0, 76.0], [64.0, 75.0], [62.0, 74.0], [60.0, 73.0], [59.0, 72.0], [57.0, 71.0], [56.0, 70.0], [54.0, 69.0], [52.0, 68.0], [51.0, 67.0], [50.0, 66.0], [49.0, 65.0], [48.0, 64.0], [47.0, 63.0], [46.0, 62.0], [45.0, 61.0], [44.0, 60.0], [43.0, 59.0], [42.0, 57.0], [41.0, 56.0], [40.0, 54.0], [39.0, 53.0], [38.0, 51.0], [37.0, 50.0], [36.0, 49.0], [35.0, 48.0], [34.0, 47.0], [33.0, 46.0], [32.0, 45.0], [31.0, 44.0], [30.0, 43.0], [29.0, 42.0], [28.0, 41.0], [27.0, 40.0], [26.0, 39.0], [25.0, 38.0], [24.0, 37.0], [23.0, 36.0], [22.0, 35.0], [21.0, 34.0], [20.0, 33.0], [19.0, 32.0], [18.0, 31.0], [17.0, 30.0], [16.0, 29.0], [15.0, 28.0], [14.0, 27.0], [13.0, 26.0], [12.0, 25.0], [11.0, 24.0], [10.0, 23.0], [9.0, 22.0], [8.0, 21.0], [7.0, 20.0], [6.0, 19.0], [5.0, 18.0], [4.0, 17.0], [3.0, 16.0], [2.0, 15.0], [1.0, 14.0]], "sit": [[91.0, 100.0], [90.0, 99.0], [89.0, 98.0], [88.0, 97.0], [87.0, 96.0], [86.0, 95.0], [84.0, 94.0], [83.0, 93.0], [82.0, 92.0], [81.0, 91.0], [80.0, 89.0], [79.0, 88.0], [78.0, 87.0], [77.0, 86.0], [76.0, 85.0], [75.0, 84.0], [74.0, 83.0], [73.0, 82.0], [72.0, 81.0], [71.0, 80.0], [70.0, 79.0], [69.0, 78.0], [68.0, 77.0], [66.0, 76.0], [65.0, 75.0], [64.0, 74.0], [62.0, 73.0], [61.0, 72.0], [59.0, 71.0], [58.0, 70.0], [57.0, 69.0], [55.0, 68.0], [54.0, 67.0], [53.0, 66.0], [52.0, 65.0], [51.0, 63.0], [50.0, 62.0], [49.0, 61.0], [48.0, 60.0], [47.0, 59.0], [46.0, 57.0], [45.0, 56.0], [44.0, 54.0], [43.0, 53.0], [42.0, 51.0], [41.0, 50.0], [40.0, 49.0], [39.0, 48.0], [38.0, 47.0], [37.0, 46.0], [36.0, 45.0], [35.0, 44.0], [34.0, 43.0], [33.0, 42.0], [32.0, 41.0], [31.0, 40.0], [30.0, 39.0], [29.0, 38.0], [28.0, 37.0], [27.0, 36.0], [26.0, 35.0], [25.0, 34.0], [24.0, 33.0], [23.0, 32.0], [22.0, 31.0], [21.0, 30.0], [20.0, 29.0], [19.0, 28.0], [18.0, 27.0], [17.0, 26.0], [16.0, 25.0], [15.0, 24.0], [14.0, 23.0], [13.0, 22.0], [12.0, 21.0], [11.0, 20.0], [10.0, 19.0], [9.0, 18.0], [8.0, 17.0], [7.0, 16.0], [6.0, 15.0], [5.0, 14.0], [4.0, 13.0], [3.0, 12.0], [2.0, 11.0], [1.0, 10.0]], "run": [[596.0, 100.0], [603.0, 99.0], [610.0, 98.0], [617.0, 97.0], [624.0, 96.0], [631.0, 95.0], [638.0, 94.0], [645.0, 93.0], [652.0, 92.0], [659.0, 91.0], [666.0, 90.0], [673.0, 89.0], [680.0, 88.0], [687.0, 87.0], [694.0, 86.0], [701.0, 85.0], [708.0, 84.0], [715.0, 83.0], [722.0, 82.0], [729.0, 81.0], [736.0, 80.0], [743.0, 79.0], [750.0, 78.0], [757.0, 77.0], [763.0, 76.0], [770.0, 75.0], [777.0, 74.0], [784.0, 73.0], [791.0, 72.0], [798.0, 71.0], [805.0, 70.0], [812.0, 69.0], [819.0, 68.0], [826.0, 67.0], [833.0, 66.0], [840.0, 65.0], [847.0, 64.0], [854.0, 63.0], [861.0, 62.0], [868.0, 61.0], [875.0, 60.0], [882.0, 59.0], [889.0, 58.0], [896.0, 57.0], [903.0, 56.0], [910.0, 55.0], [917.0, 54.0], [924.0, 53.0], [931.0, 52.0], [938.0, 51.0], [945.0, 50.0], [952.0, 49.0], [959.0, 48.0], [966.0, 47.0], [973.0, 46.0], [980.0, 45.0], [987.0, 44.0], [994.0, 43.0], [1000.0, 42.0], [1007.0, 41.0], [1014.0, 40.0], [1021.0, 39.0], [1028.0, 38.0], [1035.0, 37.0], [1042.0, 36.0], [1049.0, 35.0], [1056.0, 34.0], [1063.0, 33.0], [1070.0, 32.0], [1077.0, 31.0], [1084.0, 30.0], [1091.0, 29.0], [1098.0, 28.0], [1105.0, 27.0], [1112.0, 26.0], [1119.0, 25.0], [1126.0, 24.0], [1133.0, 23.0], [1140.0, 22.0], [1147.0, 21.0], [1154.0, 20.0], [1161.0, 19.0], [1168.0, 18.0], [1175.0, 17.0], [1182.0, 16.0], [1189.0, 15.0], [1196.0, 14.0], [1203.0, 13.0], [1210.0, 12.0], [1217.0, 11.0], [1224.0, 10.0], [1231.0, 9.0], [1237.0, 8.0], [1244.0, 7.0], [1251.0, 6.0], [1258.0, 5.0], [1265.0, 4.0], [1272.0, 3.0], [1279.0, 2.0], [1286.0, 1.0]], "pull": [[3.0, 7.0], [5.0, 6.0], [8.0, 5.0], [10.0, 4.0], [12.0, 3.0], [14.0, 2.0], [17.0, 1.0]], "grades": [[150.0, 7.0], [180.0, 6.0], [204.0, 5.0], [219.0, 4.0], [234.0, 3.0], [258.0, 2.0], [282.0, 1.0]], "months": ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]};
 const PEOPLE = {"TINGKAT 0": ["Shofyan", "Fachri", "Azka"], "TINGKAT 1": ["Qaydar", "Aryyo", "Galih"], "TINGKAT 2": ["Angger"], "TINGKAT 3": ["Hafiz", "Dhani"], "TINGKAT 4": ["Farel", "Irsyad"]};
 const STORAGE_KEY = 'GARJAS_NDA_V7';
+
+// Supabase connection (publishable/anon key is safe for browser use when RLS is configured).
+const SUPABASE_URL = 'https://scrcekrkorhkxsdsrcvn.supabase.co';
+const SUPABASE_REST = SUPABASE_URL + '/rest/v1/';
+const SUPABASE_KEY = 'sb_publishable_nXUMohGBxQx8FQOK298m6Q_CPNthejB';
+const SUPABASE_HEADERS = {
+  'apikey': SUPABASE_KEY,
+  'Authorization': 'Bearer ' + SUPABASE_KEY,
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+};
 const LEGACY_KEYS = ['GARJAS_TINGKAT_V3','GARJAS_OFFLINE_V2','GARJAS_OFFLINE_V1'];
 
 const $ = id => document.getElementById(id);
@@ -136,18 +147,15 @@ const E = {
 let currentLevel = 'TINGKAT 0';
 let chartLevel = 'TINGKAT 0';
 let editingId = null;
-let state = loadState();
+let state = emptyState();
+let remoteReady = false;
 
 function emptyState(){ return {version:7, records:[]}; }
 
 function loadState(){
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const parsed = JSON.parse(raw);
-      return sanitizeState(parsed);
-    }
-    // One-time migration from earlier prototypes.
+    if(raw) return sanitizeState(JSON.parse(raw));
     for(const key of LEGACY_KEYS){
       const old = localStorage.getItem(key);
       if(!old) continue;
@@ -161,6 +169,64 @@ function loadState(){
     }
   } catch(_){}
   return emptyState();
+}
+
+async function supabaseRequest(path='', options={}){
+  const res = await fetch(SUPABASE_REST + path, {
+    ...options,
+    headers: {...SUPABASE_HEADERS, ...(options.headers||{})}
+  });
+  const text = await res.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch(_) { data = text; }
+  if(!res.ok) throw new Error(data?.message || data?.hint || data?.error_description || text || `HTTP ${res.status}`);
+  return data;
+}
+
+function dbToRecord(r){
+  return {
+    id: String(r.id), level:`TINGKAT ${r.tingkat}`, name:r.nama, month:Number(r.bulan),
+    push:Number(r.push_up)||0, sit:Number(r.sit_up)||0, pull:Number(r.pull_up)||0, run:Number(r.lari)||0
+  };
+}
+
+function recordToDb(r){
+  const q=scores(r);
+  return {tingkat:Number(String(r.level).replace('TINGKAT ','')),nama:r.name,bulan:Number(r.month),push_up:r.push,sit_up:r.sit,pull_up:r.pull_up??r.pull, lari:r.run,total:q.total,grade:q.grade};
+}
+
+async function fetchRemoteState(){
+  const rows = await supabaseRequest('garjas_data?select=*&order=tingkat.asc,bulan.asc,id.asc', {method:'GET'});
+  return sanitizeState({version:10, records:(rows||[]).map(dbToRecord)});
+}
+
+async function migrateLocalToRemote(local){
+  if(!local.records.length) return;
+  const payload=local.records.map(recordToDb);
+  await supabaseRequest('garjas_data', {method:'POST', headers:{'Prefer':'return=minimal'}, body:JSON.stringify(payload)});
+}
+
+async function initRemote(){
+  try {
+    let remote = await fetchRemoteState();
+    const local = loadState();
+    if(remote.records.length===0 && local.records.length>0){
+      await migrateLocalToRemote(local);
+      remote = await fetchRemoteState();
+      setMessage(`<span class="ok">✓ Data lokal berhasil dipindahkan ke database online.</span>`);
+    }
+    state = remote;
+    remoteReady = true;
+    persist();
+    renderTable(); drawAll();
+    if(!state.records.length) setMessage('<span class="ok">✓ Terhubung ke database Supabase. Belum ada data.</span>');
+  } catch(err){
+    console.error('Supabase:',err);
+    state = loadState();
+    remoteReady = false;
+    renderTable(); drawAll();
+    setMessage('Database online belum dapat diakses. Aplikasi memakai data lokal perangkat ini. Detail: '+escapeHtml(err.message||err), true);
+  }
 }
 
 function sanitizeState(input){
@@ -201,7 +267,7 @@ function persist(){
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     return true;
   }catch(_){
-    setMessage('Gagal menyimpan data. Penyimpanan browser mungkin penuh atau diblokir.', true);
+    setMessage('Gagal menyimpan cache lokal browser.', true);
     return false;
   }
 }
@@ -318,41 +384,33 @@ function validateInput(){
   return {ok:true,push,sit,pull,run:minutes*60+seconds};
 }
 
-function saveRecord(){
+async function saveRecord(){
   const v = validateInput();
   if(!v.ok){ setMessage(v.msg,true); return; }
+  if(!remoteReady){ setMessage('Database online belum siap. Tunggu sebentar lalu coba lagi.',true); return; }
 
-  const name = E.name.value, month = E.month.value;
-  const existingById = editingId
-    ? state.records.find(r=>String(r.id)===String(editingId))
-    : null;
-  const duplicate = state.records.find(r =>
-    r.level===currentLevel && r.name===name && r.month===month &&
-    (!existingById || String(r.id)!==String(existingById.id))
-  );
-  if(duplicate){
-    setMessage(`${escapeHtml(name)} pada bulan ${month} sudah memiliki data. Gunakan tombol Edit pada baris tersebut.`, true);
-    return;
-  }
+  const name=E.name.value, month=Number(E.month.value);
+  const existingById=editingId ? state.records.find(r=>String(r.id)===String(editingId)) : null;
+  const duplicate=state.records.find(r=>r.level===currentLevel && r.name===name && Number(r.month)===month && (!existingById || String(r.id)!==String(existingById.id)));
+  if(duplicate){ setMessage(`${escapeHtml(name)} pada bulan ${month} sudah memiliki data. Gunakan tombol Edit.`,true); return; }
 
-  const record = {
-    id: existingById?.id ?? makeId(),
-    level: currentLevel, name, month,
-    push:v.push, sit:v.sit, pull:v.pull, run:v.run
-  };
-
-  if(existingById){
-    Object.assign(existingById, record);
-  }else{
-    state.records.push(record);
-  }
-
-  if(!persist()) return;
-  const q = scores(record);
-  renderTable();
-  drawAll();
-  clearInputs(false);
-  setMessage(`<span class="ok">✓ Tersimpan:</span> ${escapeHtml(name)} — ${month} — Total <b>${q.total}</b> — Grade Total <b>${q.grade}</b>`);
+  const record={id:existingById?.id ?? null,level:currentLevel,name,month,push:v.push,sit:v.sit,pull:v.pull,run:v.run};
+  const body=recordToDb(record);
+  try{
+    let saved;
+    if(existingById){
+      saved=await supabaseRequest(`garjas_data?id=eq.${encodeURIComponent(existingById.id)}`,{method:'PATCH',headers:{'Prefer':'return=representation'},body:JSON.stringify(body)});
+    }else{
+      saved=await supabaseRequest('garjas_data',{method:'POST',headers:{'Prefer':'return=representation'},body:JSON.stringify(body)});
+    }
+    const dbRow=Array.isArray(saved)?saved[0]:saved;
+    if(!dbRow) throw new Error('Database tidak mengembalikan data yang tersimpan.');
+    const savedRecord=dbToRecord(dbRow);
+    if(existingById) Object.assign(existingById,savedRecord); else state.records.push(savedRecord);
+    persist();
+    const q=scores(savedRecord); renderTable(); drawAll(); clearInputs(false);
+    setMessage(`<span class="ok">✓ Tersimpan online:</span> ${escapeHtml(name)} — ${month} — Total <b>${q.total}</b> — Grade Total <b>${q.grade}</b>`);
+  }catch(err){ setMessage('Gagal menyimpan ke database: '+escapeHtml(err.message||err),true); }
 }
 
 function editRecord(id){
@@ -372,14 +430,17 @@ function editRecord(id){
   document.getElementById('data').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function deleteRecord(id){
-  const r = state.records.find(x=>String(x.id)===String(id));
+async function deleteRecord(id){
+  const r=state.records.find(x=>String(x.id)===String(id));
   if(!r) return;
   if(!window.confirm(`Hapus data ${r.name} bulan ${r.month}?`)) return;
-  state.records = state.records.filter(x=>String(x.id)!==String(id));
-  if(!persist()) return;
-  setMessage(`<span class="ok">✓ Data ${escapeHtml(r.name)} bulan ${r.month} dihapus.</span>`);
-  renderTable(); drawAll();
+  if(!remoteReady){ setMessage('Database online belum siap.',true); return; }
+  try{
+    await supabaseRequest(`garjas_data?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:{'Prefer':'return=minimal'}});
+    state.records=state.records.filter(x=>String(x.id)!==String(id));
+    persist(); renderTable(); drawAll();
+    setMessage(`<span class="ok">✓ Data ${escapeHtml(r.name)} bulan ${r.month} dihapus dari database.</span>`);
+  }catch(err){ setMessage('Gagal menghapus dari database: '+escapeHtml(err.message||err),true); }
 }
 
 function renderTable(){
@@ -617,4 +678,5 @@ fillInputs();
 renderTable();
 bindEvents();
 requestAnimationFrame(drawAll);
+initRemote();
 </script></body></html>
